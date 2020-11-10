@@ -21,9 +21,12 @@ const app = new Vue ({
     },
 
     methods:{
-        addItem(){
+        addItem(index){
             if (this.message.trim() != ''){
-                this.toDoList.push(this.message);
+                this.toDoList.push({
+                    item:this.message,
+                    check:'opacity-hidden',
+                });
             };
             this.message='';
         },
