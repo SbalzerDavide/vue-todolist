@@ -20,22 +20,35 @@
                 >
                 <button
                 @click='addItem()'
-                >ADD</button>
+                >
+                ADD
+            </button>
             </div>
             <div class="scrollable">
                 <div class="list">
+
+                    <!-- todo list -->
                     <div v-for='(item, index) in toDoList' class="row flex">
-                        <p class="element">{{ toDoList[index] }}</p>
+                        <p 
+                        class="element"
+                        @click='done(index)'
+                        >
+                            <i 
+                            :class='[toDoList[index].check, "fas fa-check"]'
+                            >
+                            </i>
+                            {{ toDoList[index].item }}
+                        </p>
                         <i 
                         @click='removeItem(index)'
                         class="fas fa-times"></i>                
                     </div>
-    
+                    
+                    <!-- hidden element -->
                     <div 
                     :class="[toDoList == '' ? 'show' : 'hidden', 'row'] "
-                    
                     >
-                        <p class="element">Your list is emptry</p>
+                    <p class="element">Your list is empty</p>
                     </div>
                 </div>
             </div>

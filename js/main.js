@@ -4,44 +4,39 @@ const app = new Vue ({
     data: {
         saluto: 'salutone',
         toDoList:[
-            'Fare la spesa',
-            'Chiamare Giovanni',
-            'Aperitivo',
-            'Controllare Chiarella',
+            {
+                item: 'Fare la spesa',
+                check: 'opacity-hidden',
+            },
+            {
+                item: 'Chiamare Giovanni',
+                check: 'opacity-hidden',
+            },
+            {
+                item: 'Aperitivo',
+                check: 'opacity-hidden',
+            },
         ],
         message:'',
-        
-
-        
-
-    },
-
-    created(){
-
     },
 
     methods:{
         addItem(){
-            console.log('click');
             if (this.message.trim() != ''){
                 this.toDoList.push(this.message);
             };
-            console.log(this.toDoList);
             this.message='';
         },
         removeItem(index){
-            console.log(index),
-            console.log('removed'),
             this.toDoList.splice(index,1);
-
+        },
+        done(index){
+            if (this.toDoList[index].check === 'opacity-hidden'){
+                this.toDoList[index].check = 'opacity-show';
+            } else{
+                this.toDoList[index].check = 'opacity-hidden';
+            }
         }
-
-
-
-
-        // readM(){
-        //     console.log(this.message);
-        // },
     }
 
     

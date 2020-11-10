@@ -131,13 +131,30 @@ button:hover{
     color: #00BBF9;
 }
 
-.row i{
+.row>i{
     font-size: 20px;
     color: #f15bb5;
     cursor: pointer;
     transition: transform .3s;
 }
 
-.row i:hover{
+.row>i:hover{
     transform: scale(1.3);
+}
+
+.element{
+    cursor: pointer;
+}
+
+.element i{
+    font-size: 20px;
+    color: #f15bb5;
+}
+
+i.opacity-show{
+    opacity: 1;
+}
+
+i.opacity-hidden{
+    opacity: 0;
 }
