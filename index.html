@@ -13,24 +13,33 @@
         <div class="container">
             <h1>My todo List...</h1>
             <div class="insert">
-                <input type="text" placeholder="Add a new element in the list">
-                <button>ADD</button>
+                <input v-model='message' 
+                type="text" 
+                placeholder="Add a new element in the list"
+                @keyup.13='addItem()'
+                >
+                <button
+                @click='addItem()'
+                >ADD</button>
             </div>
             <div class="list">
-                <div class="row">
-                    <p class="element">uno</p>
-                    <i class="fas fa-times"></i>                
-                </div>
-                <div class="row">
-                    <p class="element">uno</p>
-                    <i class="fas fa-times"></i>                
-                </div>
-                <div class="row">
-                    <p class="element">uno</p>
-                    <i class="fas fa-times"></i>                
+                <div v-for='(item, index) in toDoList' class="row flex">
+                    <p class="element">{{ toDoList[index] }}</p>
+                    <i 
+                    @click='removeItem(index)'
+                    class="fas fa-times"></i>                
                 </div>
 
+                <div 
+                :class="[toDoList == '' ? 'show' : 'hidden', 'row'] "
+                
+                >
+                    <p class="element">Your list is emptry</p>
+                </div>
+
+
             </div>
+
         </div>
     </div>
     
