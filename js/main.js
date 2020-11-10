@@ -23,7 +23,7 @@ const app = new Vue ({
     methods:{
         addItem(){
             console.log('click');
-            if (this.message != ''){
+            if (this.message.trim() != ''){
                 this.toDoList.push(this.message);
             };
             console.log(this.toDoList);
@@ -35,7 +35,7 @@ const app = new Vue ({
             this.toDoList.splice(index,1);
 
         }
-        
+
 
 
 
