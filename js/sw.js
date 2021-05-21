@@ -4,3 +4,6 @@ setInterval(() =>{
     n++
     console.log(n)
 }, 3000);
+self.addEventListener('activate', function(event) {
+    console.log("activate");
+});
