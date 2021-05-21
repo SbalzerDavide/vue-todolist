@@ -31,7 +31,7 @@ const app = new Vue ({
                 console.log('ServiceWorker registration failed: ', err);
               });
           });
-      
+        }
         // localStorage.setItem("todo", this.toDoList);
         let localStor = localStorage.getItem("todo")
         if ( localStor != null){
