@@ -3,24 +3,41 @@ const app = new Vue ({
 
     data: {
         saluto: 'salutone',
-        toDoList:[
-            {
-                item: 'Fare la spesa',
-                check: 'opacity-hidden',
-            },
-            {
-                item: 'Chiamare Giovanni',
-                check: 'opacity-hidden',
-            },
-            {
-                item: 'Aperitivo',
-                check: 'opacity-hidden',
-            },
-        ],
+        toDoList : [],
+        // toDoList:[
+        //     {
+        //         item: 'Fare la spesa',
+        //         check: 'opacity-hidden',
+        //     },
+        //     {
+        //         item: 'Chiamare Giovanni',
+        //         check: 'opacity-hidden',
+        //     },
+        //     {
+        //         item: 'Aperitivo',
+        //         check: 'opacity-hidden',
+        //     },
+        // ],
         message:'',
     },
-
+    created(){
+        // localStorage.setItem("todo", this.toDoList);
+        let localStor = localStorage.getItem("todo")
+        if ( localStor != null){
+            this.toDoList = JSON.parse(localStor || "[]");;
+        } else {
+            localStorage.setItem("todo", this.toDoList);
+        }
+        console.log(this.toDoList);
+        // window.global = window.global || [];        
+    },
+    // beforeDestroy(){
+    //     localStorage.setItem("todo", this.toDoList);
+    // },
     methods:{
+        refreshStore(){
+            localStorage.setItem("todo", JSON.stringify(this.toDoList) );
+        },
         addItem(index){
             if (this.message.trim() != ''){
                 this.toDoList.push({
@@ -29,9 +46,11 @@ const app = new Vue ({
                 });
             };
             this.message='';
+            this.refreshStore();
         },
         removeItem(index){
             this.toDoList.splice(index,1);
+            this.refreshStore();
         },
         done(index){
             if (this.toDoList[index].check === 'opacity-hidden'){
@@ -39,6 +58,7 @@ const app = new Vue ({
             } else{
                 this.toDoList[index].check = 'opacity-hidden';
             }
+            this.refreshStore();
         }
     }
 
