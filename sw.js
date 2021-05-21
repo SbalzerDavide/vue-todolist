@@ -10,13 +10,13 @@ importScripts('https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js');
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
 firebase.initializeApp({
-    apiKey: "AIzaSyDofNnzot9Xd5qVOjjOdVR8WveI_RwI0-o",
-    authDomain: "prove-davide-sbalzer.firebaseapp.com",
-    projectId: "prove-davide-sbalzer",
-    storageBucket: "prove-davide-sbalzer.appspot.com",
-    messagingSenderId: "537192795757",
-    appId: "1:537192795757:web:c7d229b73f49d39fbc7964",
-    measurementId: "G-RGL0T0BTGQ"
+  apiKey: "AIzaSyDofNnzot9Xd5qVOjjOdVR8WveI_RwI0-o",
+  authDomain: "prove-davide-sbalzer.firebaseapp.com",
+  projectId: "prove-davide-sbalzer",
+  storageBucket: "prove-davide-sbalzer.appspot.com",
+  messagingSenderId: "537192795757",
+  appId: "1:537192795757:web:c7d229b73f49d39fbc7964",
+  measurementId: "G-RGL0T0BTGQ"
 });
 
 
@@ -36,4 +36,20 @@ messaging.onBackgroundMessage((payload) => {
     self.registration.showNotification(notificationTitle,
       notificationOptions);
   });
+
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        // Cache hit - return response
+        if (response) {
+          console.log("messaggio arrivato");
+          return response;
+        }
+        return fetch(event.request);
+      }
+    )
+  );
+});
+  
 
