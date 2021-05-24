@@ -98,7 +98,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-
+messaging.requestPermission();
 
 // Handle incoming messages. Called when:
 // - a message is received while the app has focus
