@@ -89,7 +89,18 @@ const app = new Vue ({
 
 let sw = null;
 
+firebase.initializeApp({
+    apiKey: "AIzaSyDofNnzot9Xd5qVOjjOdVR8WveI_RwI0-o",
+    authDomain: "prove-davide-sbalzer.firebaseapp.com",
+    projectId: "prove-davide-sbalzer",
+    storageBucket: "prove-davide-sbalzer.appspot.com",
+    messagingSenderId: "537192795757",
+    appId: "1:537192795757:web:c7d229b73f49d39fbc7964",
+    measurementId: "G-RGL0T0BTGQ"
+});
+
 const messaging = firebase.messaging();
+
 
 
 if ('serviceWorker' in navigator) {
