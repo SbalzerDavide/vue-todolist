@@ -24,7 +24,7 @@ const app = new Vue ({
           
         // if ('serviceWorker' in navigator) {
         //     window.addEventListener('load', function() {
-        //       navigator.serviceWorker.register('./js/sw.js').then(function(registration) {
+        //       navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
         //         // Registration was successful
         //         console.log('ServiceWorker registration successful with scope: ', registration.scope);
         //       }, function(err) {
@@ -86,15 +86,22 @@ const app = new Vue ({
 // Initialize the Firebase app in the service worker by passing in
 // your app's Firebase config object.
 // https://firebase.google.com/docs/web/setup#config-object
-firebase.initializeApp({
-  apiKey: "AIzaSyDofNnzot9Xd5qVOjjOdVR8WveI_RwI0-o",
-  authDomain: "prove-davide-sbalzer.firebaseapp.com",
-  projectId: "prove-davide-sbalzer",
-  storageBucket: "prove-davide-sbalzer.appspot.com",
-  messagingSenderId: "537192795757",
-  appId: "1:537192795757:web:c7d229b73f49d39fbc7964",
-  measurementId: "G-RGL0T0BTGQ"
-});
+
+let sw = null;
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
+        sw = registration;
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        // registration failed :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  });
+}
+
 
 const messaging = firebase.messaging();
 
@@ -104,7 +111,11 @@ messaging.requestPermission()
         console.log("Notification permission granted.");
 
         // get the token in the form of promise
-        return messaging.getToken()
+        return messaging.getToken(
+            {
+                serviceWorkersRegistration: sw
+            }
+        )
     })
     .then(function(token) {
         // print the token on the HTML page
