@@ -89,6 +89,9 @@ const app = new Vue ({
 
 let sw = null;
 
+const messaging = firebase.messaging();
+
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
@@ -127,31 +130,7 @@ if ('serviceWorker' in navigator) {
 }
 
 
-const messaging = firebase.messaging();
 
-Notification.requestPermission()
-    .then(function (permission) {
-        // MsgElem.innerHTML = "Notification permission granted." 
-        console.log("Notification permission granted.");
-        if (permission === "granted"){
-            return messaging.getToken(
-                {
-                    serviceWorkersRegistration: sw
-                }
-            )
-
-        }
-        // get the token in the form of promise
-    })
-    .then(function(token) {
-        // print the token on the HTML page
-        console.log(token);
-        // TokenElem.innerHTML = "Device token is : <br>" + token
-    })
-    .catch(function (err) {
-    // ErrElem.innerHTML = ErrElem.innerHTML + "; " + err
-        console.log("Unable to get permission to notify.", err);
-});
 
 // Handle incoming messages. Called when:
 // - a message is received while the app has focus
