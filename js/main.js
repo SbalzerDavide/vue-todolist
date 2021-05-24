@@ -114,7 +114,7 @@ if ('serviceWorker' in navigator) {
             if (permission === "granted"){
                 return messaging.getToken(
                     {
-                        serviceWorkersRegistration: sw
+                        serviceWorkerRegistration: sw
                     }
                 )
 
