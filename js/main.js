@@ -105,17 +105,19 @@ if ('serviceWorker' in navigator) {
 
 const messaging = firebase.messaging();
 
-messaging.requestPermission()
-    .then(function () {
+Notification.requestPermission()
+    .then(function (permission) {
         // MsgElem.innerHTML = "Notification permission granted." 
         console.log("Notification permission granted.");
+        if (permission === "granted"){
+            return messaging.getToken(
+                {
+                    serviceWorkersRegistration: sw
+                }
+            )
 
+        }
         // get the token in the form of promise
-        return messaging.getToken(
-            {
-                serviceWorkersRegistration: sw
-            }
-        )
     })
     .then(function(token) {
         // print the token on the HTML page
