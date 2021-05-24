@@ -100,7 +100,7 @@ const messaging = firebase.messaging();
 
 messaging.requestPermission()
     .then(function () {
-        MsgElem.innerHTML = "Notification permission granted." 
+        // MsgElem.innerHTML = "Notification permission granted." 
         console.log("Notification permission granted.");
 
         // get the token in the form of promise
